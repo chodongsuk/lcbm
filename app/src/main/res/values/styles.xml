@@ -21,6 +21,23 @@
         <item name="android:listSelector">@drawable/selector_listview</item>
     </style>
 
+    <style name="ViewTopText">
+        <item name="android:textColor">@color/view_top_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+    </style>
+
+
+    <style name="ViewLine">
+        <item name="android:background">@color/app_color</item>
+    </style>
+
+
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/app_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 
 
 

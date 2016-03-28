@@ -36,11 +36,12 @@ public class ListFragment extends BaseFragment {
 	private ListAdapter mListAdapter;
 	private ProgressBar mProgressBar;
 	private String mCode;
-	
-	public static ListFragment newInstance(String code) {
+	private Boolean isCall = false;
+	public static ListFragment newInstance(String code, Boolean iscall) {
 		ListFragment fragment = new ListFragment();
 		Bundle args = new Bundle();
 		args.putString("code", code);
+		args.putBoolean("iscall", iscall);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -62,6 +63,7 @@ public class ListFragment extends BaseFragment {
 		// TODO Auto-generated method stub
 
 		mCode = getArguments().getString("code");
+		isCall = getArguments().getBoolean("iscall");
 
 		mView = inflater.inflate(R.layout.list_fragment, null);
 		mProgressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
@@ -100,7 +102,7 @@ public class ListFragment extends BaseFragment {
 						mProgressBar.setVisibility(View.GONE);
 						if(arrayList != null){
 							mData = (ArrayList<ListHandler>) arrayList;
-							mListAdapter = new ListAdapter(mContext, mData);
+							mListAdapter = new ListAdapter(mContext, mData, isCall);
 							mListView.setAdapter(mListAdapter);
 						}
 

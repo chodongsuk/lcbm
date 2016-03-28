@@ -78,6 +78,10 @@ public class CategoryData extends BaseData {
                                 mCategoryHandler = mData.get(mData.size() - 1);
                                 mCategoryHandler.setCode(jsonArray1.getJSONObject(i).getString("code"));
                                 mCategoryHandler.setName(jsonArray1.getJSONObject(i).getString("name"));
+                                mCategoryHandler.setImage(jsonArray1.getJSONObject(i).getString("image"));
+                                mCategoryHandler.setType(jsonArray1.getJSONObject(i).getString("type"));
+                                mCategoryHandler.setHomepage(jsonArray1.getJSONObject(i).getString("homepage"));
+                                mCategoryHandler.setIsBg(false);
                             }
                     }
                 }

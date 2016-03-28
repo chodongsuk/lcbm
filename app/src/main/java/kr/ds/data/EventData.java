@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 import kr.ds.asynctask.DsAsyncTask;
 import kr.ds.asynctask.DsAsyncTaskCallback;
 import kr.ds.config.Config;
-import kr.ds.handler.ListHandler;
+import kr.ds.handler.EventHandler;
 import kr.ds.httpclient.DsHttpClient;
 import kr.ds.utils.DsObjectUtils;
 
@@ -19,17 +19,17 @@ import android.util.Log;
 /**
  * Created by Administrator on 2016-03-08.
  */
-public class ListData extends BaseData {
+public class EventData extends BaseData {
     private Context mContext;
-    private String URL = Config.URL + Config.URL_XML + Config.LIST;
+    private String URL = Config.URL + Config.URL_XML + Config.EVENT;
     private String PARAM = "";
 
-    private ListHandler mListHandler;
-    private ArrayList<ListHandler> mData;
+    private EventHandler mEventHandler;
+    private ArrayList<EventHandler> mData;
 
     private BaseResultListener mResultListener;
 
-    public ListData(Context context){
+    public EventData(Context context){
         mContext = context;
     }
     @Override
@@ -37,11 +37,11 @@ public class ListData extends BaseData {
         if (mData != null) {
             mData = null;
         }
-        mData = new ArrayList<ListHandler>();
-        if (mListHandler != null) {
-            mListHandler = null;
+        mData = new ArrayList<EventHandler>();
+        if (mEventHandler != null) {
+            mEventHandler = null;
         }
-        mListHandler = new ListHandler();
+        mEventHandler = new EventHandler();
         return this;
     }
 
@@ -73,24 +73,16 @@ public class ListData extends BaseData {
                 if (result.matches("success")) {
                     JSONArray jsonArray1 = jsonObject.getJSONArray("list");
                     for(int i = 0; i < jsonArray1.length(); i++){
-                            mData.add(new ListHandler());
+                            mData.add(new EventHandler());
                             if (mData.size() > 0) {
-                                mListHandler = mData.get(mData.size() - 1);
-                                mListHandler.setGd_uid(jsonArray1.getJSONObject(i).getString("gd_uid"));
-                                mListHandler.setCd_code(jsonArray1.getJSONObject(i).getString("cd_code"));
-                                mListHandler.setGd_name(jsonArray1.getJSONObject(i).getString("gd_name"));
-                                mListHandler.setGd_tema(jsonArray1.getJSONObject(i).getString("gd_tema"));
-                                mListHandler.setGd_address(jsonArray1.getJSONObject(i).getString("gd_address"));
-                                mListHandler.setGd_tell(jsonArray1.getJSONObject(i).getString("gd_tell"));
-                                mListHandler.setGd_time(jsonArray1.getJSONObject(i).getString("gd_time"));
-                                mListHandler.setGd_holiday(jsonArray1.getJSONObject(i).getString("gd_holiday"));
-                                mListHandler.setGd_image(jsonArray1.getJSONObject(i).getString("gd_image"));
-                                mListHandler.setGd_lat(jsonArray1.getJSONObject(i).getString("gd_lat"));
-                                mListHandler.setGd_lon(jsonArray1.getJSONObject(i).getString("gd_lon"));
-                                mListHandler.setGd_content(jsonArray1.getJSONObject(i).getString("gd_content"));
-                                mListHandler.setGd_regdate(jsonArray1.getJSONObject(i).getString("gd_regdate"));
-
-                            }
+                                mEventHandler = mData.get(mData.size() - 1);
+                                mEventHandler.setEd_uid(jsonArray1.getJSONObject(i).getString("ed_uid"));
+                                mEventHandler.setEd_name(jsonArray1.getJSONObject(i).getString("ed_name"));
+                                mEventHandler.setEd_subject(jsonArray1.getJSONObject(i).getString("ed_subject"));
+                                mEventHandler.setEd_image(jsonArray1.getJSONObject(i).getString("ed_image"));
+                                mEventHandler.setEd_content(jsonArray1.getJSONObject(i).getString("ed_content"));
+                                mEventHandler.setEd_regdate(jsonArray1.getJSONObject(i).getString("ed_regdate"));
+                                }
                     }
                 }
                 return result;

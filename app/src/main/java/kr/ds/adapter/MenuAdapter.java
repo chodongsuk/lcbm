@@ -2,6 +2,7 @@ package kr.ds.adapter;
 
 import java.util.ArrayList;
 
+import kr.ds.handler.CategoryHandler;
 import kr.ds.handler.MenuHandler;
 
 import android.content.Context;
@@ -17,11 +18,11 @@ import android.widget.TextView;
 
 public class MenuAdapter extends BaseAdapter{
 	private Context mContext;
-	private ArrayList<MenuHandler> mData;
+	private ArrayList<CategoryHandler> mData;
 	private View mView;
 	//LayoutInflater mInflater;
 	
-	public MenuAdapter(Context context, ArrayList<MenuHandler> data){
+	public MenuAdapter(Context context, ArrayList<CategoryHandler> data){
 		mContext = context;
 		mData = data;
 		//mInflater = LayoutInflater.from(mContext);
@@ -48,7 +49,7 @@ public class MenuAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		mView = setLayout(mData.get(position).getName(), position, mData.get(position).isBg());
+		mView = setLayout(mData.get(position).getName(), position, mData.get(position).getIsBg());
 		return mView;
 	}
 	

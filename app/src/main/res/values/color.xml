@@ -12,4 +12,10 @@
     <color name="bg">#ebebeb</color>
 
 
+    <color name="view_top_text">#232323</color>
+    <color name="view_top_line">#d6d6d6</color>
+
+    <color name="sub_title">#a0a0a0</color>
+
+
 </resources>

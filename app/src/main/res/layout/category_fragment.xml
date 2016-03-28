@@ -2,30 +2,115 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingLeft="5dip"
-              android:paddingRight="5dip"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
               android:orientation="vertical">
 
-    <FrameLayout
+    <ScrollView
+        android:id="@+id/scrollView_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
-        <GridView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/gridView"
-            style="@style/ListViewStyle"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:horizontalSpacing="2dip"
-            android:numColumns="3"
-            android:scrollbars="none"
-            android:verticalSpacing="2dip" />
+            android:layout_height="wrap_content">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal" />
-    </FrameLayout>
+            <LinearLayout
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ViewTopText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사건사고"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/ViewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip">
+                </View>
+            </LinearLayout>
+
+
+            <kr.ds.widget.CustomViewPager
+                android:paddingTop="2dip"
+                android:layout_width="match_parent"
+                android:layout_height="150dip"
+                >
+            </kr.ds.widget.CustomViewPager>
+
+
+            <LinearLayout
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ViewTopText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="추천검색"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/ViewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip">
+                </View>
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <kr.ds.widget.ScrollGridView
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/gridView"
+                    style="@style/ListViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:horizontalSpacing="2dip"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:verticalSpacing="2dip"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"/>
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
+

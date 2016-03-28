@@ -7,6 +7,10 @@ public class CategoryHandler implements Parcelable {
 	
 	private String name;
 	private String code;
+	private String image;
+	private String type;
+	private String homepage;
+	private Boolean isBg;
 
 	public CategoryHandler() {
 		// TODO Auto-generated constructor stub
@@ -16,6 +20,9 @@ public class CategoryHandler implements Parcelable {
 		// TODO Auto-generated constructor stub
 		this.name = src.readString();
 		this.code = src.readString();
+		this.image = src.readString();
+		this.type = src.readString();
+		this.homepage = src.readString();
 
 	}
 	public String getName() {
@@ -34,6 +41,38 @@ public class CategoryHandler implements Parcelable {
 		this.code = code;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getHomepage() {
+		return homepage;
+	}
+
+	public void setHomepage(String homepage) {
+		this.homepage = homepage;
+	}
+
+	public Boolean getIsBg() {
+		return isBg;
+	}
+
+	public void setIsBg(Boolean isBg) {
+		this.isBg = isBg;
+	}
+
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
@@ -44,6 +83,9 @@ public class CategoryHandler implements Parcelable {
 		// TODO Auto-generated method stub
 		dest.writeString(this.name);
 		dest.writeString(this.code);
+		dest.writeString(this.image);
+		dest.writeString(this.type);
+		dest.writeString(this.homepage);
 
 	}
 

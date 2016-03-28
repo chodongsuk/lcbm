@@ -26,9 +26,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import kr.ds.adapter.CategoryAdapter;
 import kr.ds.adapter.MenuAdapter;
+import kr.ds.data.BaseResultListener;
+import kr.ds.data.CategoryData;
 import kr.ds.fragment.BaseFragment;
 import kr.ds.fragment.CategoryFragment;
+import kr.ds.handler.CategoryHandler;
 import kr.ds.handler.MenuHandler;
 import kr.ds.permission.Permission;
 import kr.ds.utils.DsObjectUtils;
@@ -44,17 +48,14 @@ public class MainActivity extends BaseActivity {
     private FragmentTransaction mFt;
     private Fragment mFragment = null;
 
-    private String[] mFragmentTitles;
-    private ArrayList<MenuHandler> mMenuData;
-    private MenuHandler mMenuHandler;
-
-
     private int mMenuPosition = -1; //디폴트
     private MenuAdapter mMenuAdapter;
     private Bundle mBundle = null;
 
     private MenuItem mSearchItem;
 
+    private CategoryData mCategoryData;
+    private ArrayList<CategoryHandler> mMenuData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,27 +78,39 @@ public class MainActivity extends BaseActivity {
                 R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        //메뉴
-        mFragmentTitles = getResources().getStringArray(R.array.fragments);
-        mMenuData = new ArrayList<MenuHandler>();
-        mMenuHandler = new MenuHandler();
-        for(int i=0; i< mFragmentTitles.length; i++) {
-            mMenuData.add(new MenuHandler());
-            mMenuHandler = mMenuData.get(mMenuData.size()-1);
-            mMenuHandler.setName(mFragmentTitles[i].toString());
-            mMenuHandler.setBg(false);
-        }
 
-        mMenuAdapter = new MenuAdapter(getApplicationContext(),mMenuData);
-        mListView.setOnItemClickListener(new DrawerItemClickListener());
-        mListView.setAdapter(mMenuAdapter);
+        mCategoryData = new CategoryData(getApplicationContext());
+        mCategoryData.clear().setCallBack(
+                new BaseResultListener() {
+
+                    @Override
+                    public <T> void OnComplete() {
+
+                    }
+
+                    @Override
+                    public <T> void OnComplete(final ArrayList<T> arrayList) {
+
+                        if(arrayList != null){
+                            mMenuData = (ArrayList<CategoryHandler>) arrayList;
+                            mMenuAdapter = new MenuAdapter(getApplicationContext(),mMenuData);
+                            mListView.setOnItemClickListener(new DrawerItemClickListener());
+                            mListView.setAdapter(mMenuAdapter);
+
+                        }
+                    }
+
+                    @Override
+                    public void OnError(String str) {
+                    }
+                }).getView();
 
         if(mMenuPosition != -1){//메뉴설정
-            mMenuData.get(mMenuPosition).setBg(true);
+            mMenuData.get(mMenuPosition).setIsBg(true);
             mMenuAdapter.notifyDataSetChanged();
         }
         if (savedInstanceState == null) {
-            selectItem(0);
+            selectItem(-1);
         }
     }
 
@@ -116,13 +129,31 @@ public class MainActivity extends BaseActivity {
         }
     }
     private void selectItem(int position){
-        switch(position){
-            case 0:
-                mFragment = CategoryFragment.newInstance();
-                setFragment(mFragment);
-                break;
-        }
+        if(position == -1){
+            mFragment = CategoryFragment.newInstance();
+            setFragment(mFragment);
+        }else if(position >= 0){
+            if(mMenuData.get(position).getType().matches("V")){
 
+                Intent NextIntent = new Intent(getApplicationContext(), ListActivity.class);
+                NextIntent.putExtra("data", mMenuData.get(position));
+                startActivity(NextIntent);
+
+            }else if(mMenuData.get(position).getType().matches("H")){
+
+                Intent NextIntent = new Intent(getApplicationContext(), CustomWebViewActivity.class);
+                NextIntent.putExtra("data", mMenuData.get(position));
+                startActivity(NextIntent);
+
+            }else if(mMenuData.get(position).getType().matches("R")){
+
+                Intent NextIntent = new Intent(getApplicationContext(), RegisActivity.class);
+                NextIntent.putExtra("data", mMenuData.get(position));
+                startActivity(NextIntent);
+
+            }
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
 
     }
     private void setFragment(Fragment fragment){
@@ -140,9 +171,9 @@ public class MainActivity extends BaseActivity {
         public void onItemClick(AdapterView<?> parent, View v, int position, long id){
             mMenuPosition = position;
             for(int i=0; i< mMenuData.size(); i++){
-                mMenuData.get(i).setBg(false);
+                mMenuData.get(i).setIsBg(false);
             }
-            mMenuData.get(position).setBg(true);
+            mMenuData.get(position).setIsBg(true);
             mMenuAdapter.notifyDataSetChanged();
             selectItem(position);
         }

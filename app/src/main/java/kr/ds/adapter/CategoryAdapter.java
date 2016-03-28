@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+
 import java.util.ArrayList;
 
 import kr.com.lcbm.R;
@@ -26,6 +30,7 @@ public class CategoryAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<CategoryHandler> mData;
     private LayoutInflater mInflater;
+    private final ImageLoader imageDownloader = ImageLoader.getInstance();
 
     public CategoryAdapter(Context context, ArrayList<CategoryHandler> data) {
         mContext = context;
@@ -64,7 +69,7 @@ public class CategoryAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.category_fragment_item,null);
             holder.textViewName = (TextView) convertView.findViewById(R.id.textView_name);
-
+            holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -77,10 +82,42 @@ public class CategoryAdapter extends BaseAdapter {
             holder.textViewName.setText("");
         }
 
+        if(!DsObjectUtils.isEmpty(mData.get(position).getImage())){
+            imageDownloader.displayImage(mData.get(position).getImage(), holder.imageView, new ImageLoadingListener() {
+
+                @Override
+                public void onLoadingStarted(String arg0, View arg1) {
+                    // TODO Auto-generated method stub
+                    holder.imageView.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+                    // TODO Auto-generated method stub
+                    holder.imageView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+                    // TODO Auto-generated method stub
+                    holder.imageView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingCancelled(String arg0, View arg1) {
+                    // TODO Auto-generated method stub
+                }
+            });
+
+        }else{
+            holder.imageView.setVisibility(View.GONE);
+        }
+
         return convertView;
     }
     class ViewHolder {
         TextView textViewName;
+        ImageView imageView;
 
     }
 }
