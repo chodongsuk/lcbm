@@ -89,6 +89,7 @@ public class ListData extends BaseData {
                                 mListHandler.setGd_lon(jsonArray1.getJSONObject(i).getString("gd_lon"));
                                 mListHandler.setGd_content(jsonArray1.getJSONObject(i).getString("gd_content"));
                                 mListHandler.setGd_regdate(jsonArray1.getJSONObject(i).getString("gd_regdate"));
+                                mListHandler.setSub_images(jsonArray1.getJSONObject(i).getString("sub_images"));
 
                             }
                     }

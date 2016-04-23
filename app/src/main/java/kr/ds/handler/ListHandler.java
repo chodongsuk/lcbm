@@ -20,6 +20,7 @@ public class ListHandler  implements Parcelable{
     private String gd_lon;
     private String gd_content;
     private String gd_regdate;
+    private String sub_images;
     public ListHandler() {
 
     }
@@ -40,6 +41,7 @@ public class ListHandler  implements Parcelable{
         this.gd_lon = src.readString();
         this.gd_content = src.readString();
         this.gd_regdate = src.readString();
+        this.sub_images = src.readString();
     }
 
 
@@ -147,6 +149,15 @@ public class ListHandler  implements Parcelable{
         this.gd_image = gd_image;
     }
 
+
+    public String getSub_images() {
+        return sub_images;
+    }
+
+    public void setSub_images(String sub_images) {
+        this.sub_images = sub_images;
+    }
+
     @Override
     public int describeContents() {
         // TODO Auto-generated method stub
@@ -168,6 +179,7 @@ public class ListHandler  implements Parcelable{
         dest.writeString(this.gd_lon);
         dest.writeString(this.gd_content);
         dest.writeString(this.gd_regdate);
+        dest.writeString(this.sub_images);
     }
 
     public static final Parcelable.Creator CREATOR = new Creator() { //데이터 가져오기

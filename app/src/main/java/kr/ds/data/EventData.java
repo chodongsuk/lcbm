@@ -82,6 +82,7 @@ public class EventData extends BaseData {
                                 mEventHandler.setEd_image(jsonArray1.getJSONObject(i).getString("ed_image"));
                                 mEventHandler.setEd_content(jsonArray1.getJSONObject(i).getString("ed_content"));
                                 mEventHandler.setEd_regdate(jsonArray1.getJSONObject(i).getString("ed_regdate"));
+                                mEventHandler.setSub_images(jsonArray1.getJSONObject(i).getString("sub_images"));
                                 }
                     }
                 }

@@ -64,6 +64,7 @@
             android:id="@+id/textView_address"/>
 
         <Button
+            android:focusable="false"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:layout_alignParentRight="true"

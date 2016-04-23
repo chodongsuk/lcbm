@@ -11,6 +11,7 @@ public class EventHandler implements Parcelable {
 	private String ed_image;
 	private String ed_content;
 	private String ed_regdate;
+	private String sub_images;
 
 	public EventHandler() {
 		// TODO Auto-generated constructor stub
@@ -24,6 +25,7 @@ public class EventHandler implements Parcelable {
 		this.ed_image = src.readString();
 		this.ed_content = src.readString();
 		this.ed_regdate = src.readString();
+		this.sub_images = src.readString();
 
 	}
 
@@ -75,6 +77,14 @@ public class EventHandler implements Parcelable {
 		this.ed_regdate = ed_regdate;
 	}
 
+	public String getSub_images() {
+		return sub_images;
+	}
+
+	public void setSub_images(String sub_images) {
+		this.sub_images = sub_images;
+	}
+
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
@@ -89,6 +99,7 @@ public class EventHandler implements Parcelable {
 		dest.writeString(this.ed_image);
 		dest.writeString(this.ed_content);
 		dest.writeString(this.ed_regdate);
+		dest.writeString(this.sub_images);
 
 	}
 
