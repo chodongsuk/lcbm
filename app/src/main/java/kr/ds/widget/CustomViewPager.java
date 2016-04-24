@@ -1,16 +1,10 @@
 package kr.ds.widget;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -51,6 +45,7 @@ public class CustomViewPager extends LinearLayout{
     }
 
 
+
     public CustomViewPager init(){
         mEventData = new EventData(mContext);
         mEventData.clear().setCallBack(new BaseResultListener() {
@@ -65,7 +60,7 @@ public class CustomViewPager extends LinearLayout{
                     mData = (ArrayList<EventHandler>) arrayList;
 
                     mViewPager = new ViewPager(mContext);
-                    mViewPager.setPadding(mScreenUtils.getPixelFromDPI(mContext, 10),0,mScreenUtils.getPixelFromDPI(mContext, 10),0);
+                    mViewPager.setPadding(mScreenUtils.getPixelFromDPI(mContext, 7),0,mScreenUtils.getPixelFromDPI(mContext, 7),0);
                     mViewPager.setClipToPadding(false);
                     mViewPager.setPageMargin(mScreenUtils.getPixelFromDPI(mContext, 4));
                     mCustomViewPagerAdapter = new CustomViewPagerAdapter(mContext, mData);

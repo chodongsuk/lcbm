@@ -16,9 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.ContentHandler;
-
-import kr.ds.handler.CategoryHandler;
+import kr.ds.handler.EventHandler;
 import kr.ds.handler.ListHandler;
 import kr.ds.utils.DsObjectUtils;
 import kr.ds.widget.ContentViewPager;
@@ -26,13 +24,13 @@ import kr.ds.widget.ContentViewPager;
 /**
  * Created by Administrator on 2016-03-21.
  */
-public class ViewActivity extends BaseActivity implements View.OnClickListener{
+public class EventViewActivity extends BaseActivity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mListView;
     private Toolbar mToolbar;
 
-    private ListHandler mSavedata;
+    private EventHandler mSavedata;
     private TextView mTextViewContet;
 
     private Button mButtonTell;
@@ -41,7 +39,7 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSavedata = (ListHandler) getIntent().getParcelableExtra("data");
+        mSavedata = (EventHandler) getIntent().getParcelableExtra("data");
         setContentView(R.layout.activity_view);
         mTextViewContet = (TextView)findViewById(R.id.textView_content);
         (mButtonTell = (Button)findViewById(R.id.button_tell)).setOnClickListener(this);
@@ -49,8 +47,8 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener{
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
-            if(!DsObjectUtils.isEmpty(mSavedata.getGd_name())){
-                mToolbar.setTitle(mSavedata.getGd_name());
+            if(!DsObjectUtils.isEmpty(mSavedata.getEd_name())){
+                mToolbar.setTitle(mSavedata.getEd_name());
             }else{
                 mToolbar.setTitle(getResources().getString(R.string.app_name));
             }
@@ -59,8 +57,8 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener{
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        if(!DsObjectUtils.isEmpty(mSavedata.getGd_content())){
-            mTextViewContet.setText(Html.fromHtml(mSavedata.getGd_content()));
+        if(!DsObjectUtils.isEmpty(mSavedata.getEd_content())){
+            mTextViewContet.setText(Html.fromHtml(mSavedata.getEd_content()));
         }
 
         if(!DsObjectUtils.isEmpty(mSavedata.getSub_images())){
@@ -85,7 +83,7 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener{
     }
     private void SetTell(final String tell){
         if (!DsObjectUtils.isEmpty(tell)) {
-            AlertDialog.Builder alt_bld = new AlertDialog.Builder(ViewActivity.this);
+            AlertDialog.Builder alt_bld = new AlertDialog.Builder(EventViewActivity.this);
             alt_bld.setMessage("전화 연결 하시겠습니까?")
                     .setCancelable(false)
                     .setPositiveButton("전화걸기",
@@ -116,9 +114,9 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.button_tell:
-                if(!DsObjectUtils.isEmpty(mSavedata.getGd_tell())) {
-                    SetTell(mSavedata.getGd_tell());
-                }
+//                if(!DsObjectUtils.isEmpty(mSavedata.getGd_tell())) {
+//                    SetTell(mSavedata.getGd_tell());
+//                }
                 break;
         }
     }

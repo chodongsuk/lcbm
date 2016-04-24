@@ -3,8 +3,11 @@ package kr.ds.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Parcelable;
+import android.support.v4.util.Pools;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,22 +20,22 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 import java.util.ArrayList;
 
-import kr.com.lcbm.EventViewActivity;
+import kr.com.lcbm.MainActivity;
 import kr.com.lcbm.R;
-import kr.com.lcbm.ViewActivity;
 import kr.ds.handler.EventHandler;
 
 /**
  * Created by Administrator on 2016-03-28.
  */
-public class CustomViewPagerAdapter extends PagerAdapter {
-    private ArrayList<EventHandler> mArrayList;
+public class ContentViewPagerAdapter extends PagerAdapter {
+    //private ArrayList<EventHandler> mArrayList;
+    private String[] mData;
     private Context mContext;
     private final ImageLoader imageDownloader = ImageLoader.getInstance();
 
-    public CustomViewPagerAdapter(Context context, ArrayList<EventHandler> data){
+    public ContentViewPagerAdapter(Context context, String[] data){
         mContext = context;
-        mArrayList = data;
+        mData = data;
     }
 
 
@@ -43,13 +46,10 @@ public class CustomViewPagerAdapter extends PagerAdapter {
         ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent NextIntent = new Intent(mContext, EventViewActivity.class);
-                NextIntent.putExtra("data", mArrayList.get(position));
-                mContext.startActivity(NextIntent);
             }
         });
 
-        imageDownloader.displayImage(mArrayList.get(position).getEd_image(), ivImage,
+        imageDownloader.displayImage(mData[position], ivImage,
                 new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String arg0, View arg1) {
@@ -96,7 +96,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mArrayList.size();
+        return mData.length;
     }
 
     @Override
