@@ -76,13 +76,13 @@ public class CategoryAdapter extends BaseAdapter {
         }
 
 
-        if(!DsObjectUtils.isEmpty(mData.get(position).getName())){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getName())){
             holder.textViewName.setText(mData.get(position).getName());
         }else{
             holder.textViewName.setText("");
         }
 
-        if(!DsObjectUtils.isEmpty(mData.get(position).getImage())){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getImage())){
             imageDownloader.displayImage(mData.get(position).getImage(), holder.imageView, new ImageLoadingListener() {
 
                 @Override

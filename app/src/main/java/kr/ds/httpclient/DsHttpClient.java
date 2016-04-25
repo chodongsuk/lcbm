@@ -94,6 +94,7 @@ public class DsHttpClient {
 			http.setDoOutput(true);
 			http.setRequestMethod("POST");
 			http.setRequestProperty("Connection", "Keep-Alive");
+			http.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
 			DataOutputStream dos = new DataOutputStream(http.getOutputStream());
 			HashMap<K, V> mHashMap = para_hashmap;

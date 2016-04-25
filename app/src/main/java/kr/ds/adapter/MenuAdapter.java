@@ -83,7 +83,7 @@ public class MenuAdapter extends BaseAdapter{
 		mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f);
 		mTextView.setPaintFlags(mTextView.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
 		if(bg){
-			mTextView.setTextColor(0xffff493c);
+			mTextView.setTextColor(0xff3fb8ec);
 		}else{
 			mTextView.setTextColor(0xff555555);
 		}

@@ -11,6 +11,7 @@ public class Config {
 	public static String EVENT = "event.php";
 	public static String LIST = "list.php";
 	public static String FILEFOLDER = "";// 서버파일폴더
+	public static String GCM = "gcm.php";
 
 	public Config(Context context) {
 		mContext = context;

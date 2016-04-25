@@ -1,5 +1,7 @@
 package kr.ds.utils;
 
+import android.content.Context;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,26 @@ import java.util.Map;
  * 
  */
 public class DsObjectUtils {
-	public static boolean isEmpty(Object s) {
+
+	private static DsObjectUtils objectUtils = null;
+	private Context mContext = null;
+
+	public DsObjectUtils(Context context) {
+		mContext = context;
+	}
+
+	public static DsObjectUtils getInstance(Context context) {
+		if (objectUtils == null) {
+			synchronized (DsObjectUtils.class) {
+				if (objectUtils == null) {
+					objectUtils = new DsObjectUtils(
+							context.getApplicationContext());
+				}
+			}
+		}
+		return objectUtils;
+	}
+	public boolean isEmpty(Object s) {
 		if (s == null) {
 			return true;
 		}

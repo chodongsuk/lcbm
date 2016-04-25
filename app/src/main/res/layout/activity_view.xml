@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg"
-    android:orientation="vertical">
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg"
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,10 +15,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"/>
     </android.support.v7.widget.Toolbar>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1">
@@ -42,8 +43,123 @@
                     android:layout_width="match_parent"
                     android:layout_height="204dip"
                     android:paddingTop="2dip"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="10dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ViewTopText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="주요분야"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/ViewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip">
+                </View>
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dip"
+                    >
+
+                    <TextView
+                        android:paddingTop="5dip"
+                        android:id="@+id/textView_tema"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:paddingTop="5dip"
+                        android:id="@+id/textView_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:paddingTop="5dip"
+                        android:id="@+id/textView_tell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:paddingTop="5dip"
+                        android:id="@+id/textView_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:paddingTop="5dip"
+                        android:id="@+id/textView_holiday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="10dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/ViewTopText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="상세내용"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/ViewLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginTop="2dip"
+                    android:layout_marginBottom="2dip">
+                </View>
+            </LinearLayout>
+
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -57,26 +173,51 @@
                     android:layout_height="wrap_content"
                     android:padding="20dip"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dip"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardUseCompatPadding="true">
 
+                <fragment
+                    android:layout_margin="5dip"
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    class="kr.ds.fragment.WorkaroundMapFragment"/>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/button_share"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="공유하기"
+            android:layout_marginRight="1dip"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"/>
+
+        <Button
+            android:layout_marginLeft="1dip"
             android:id="@+id/button_tell"
-            android:layout_width="match_parent"
+            android:layout_width="0dip"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:text="전화연결"
             android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
     </LinearLayout>
 </LinearLayout>

@@ -89,7 +89,7 @@ public class ListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(!DsObjectUtils.isEmpty(mData.get(position).getGd_image())){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_image())){
             imageDownloader.displayImage(mData.get(position).getGd_image(), holder.imageView, new ImageLoadingListener() {
 
                 @Override
@@ -123,22 +123,22 @@ public class ListAdapter extends BaseAdapter {
         }
 
 
-        if(!DsObjectUtils.isEmpty(mData.get(position).getGd_name())){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_name())){
             holder.textViewName.setText(mData.get(position).getGd_name());
         }else{
             holder.textViewName.setText("");
         }
-        if(!DsObjectUtils.isEmpty(mData.get(position).getGd_tema())){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_tema())){
             holder.textViewTema.setText(mData.get(position).getGd_tema());
         }else{
             holder.textViewTema.setText("");
         }
-        if(!DsObjectUtils.isEmpty(mData.get(position).getGd_address())){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_address())){
             holder.textViewAddress.setText(mData.get(position).getGd_address());
         }else{
             holder.textViewAddress.setText("");
         }
-        if(!DsObjectUtils.isEmpty(mData.get(position).getGd_tell()) && isCall){
+        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_tell()) && isCall){
             holder.button.setVisibility(View.VISIBLE);
         }else{
             holder.button.setVisibility(View.GONE);
@@ -158,7 +158,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     private void SetTell(final String tell){
-        if (!DsObjectUtils.isEmpty(tell)) {
+        if (!DsObjectUtils.getInstance(mContext).isEmpty(tell)) {
             AlertDialog.Builder alt_bld = new AlertDialog.Builder(mContext);
             alt_bld.setMessage("전화 연결 하시겠습니까?")
                     .setCancelable(false)

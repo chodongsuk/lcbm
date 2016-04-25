@@ -61,7 +61,7 @@ public class CustomWebViewActivity extends BaseActivity {
 		setContentView(R.layout.web);
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		if (mToolbar != null) {
-			if(!DsObjectUtils.isEmpty(name)){
+			if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(name)){
 				mToolbar.setTitle(name);
 			}
 	    	setSupportActionBar(mToolbar);

@@ -2,9 +2,14 @@ package kr.com.lcbm;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +29,9 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.util.ArrayList;
 
@@ -38,7 +47,7 @@ import kr.ds.permission.Permission;
 import kr.ds.utils.DsObjectUtils;
 
 public class MainActivity extends BaseActivity {
-
+    private static final String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mListView;
@@ -56,6 +65,12 @@ public class MainActivity extends BaseActivity {
 
     private CategoryData mCategoryData;
     private ArrayList<CategoryHandler> mMenuData;
+
+    private SharedPreferences sharedPreferences;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    public static final int AREA_RESULTCODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +80,27 @@ public class MainActivity extends BaseActivity {
             mMenuPosition = savedInstanceState.getInt("menu_position");
         }
         setContentView(R.layout.activity_main);
+
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if (checkPlayServices() && sharedPreferences.getString(QuickstartPreferences.TOKEN,"").matches("")) { //토큰이 없는경우..
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
+                if (sentToken) {
+                    Log.i(TAG, "Registration Token sucessful " );
+                } else {
+                    Log.i(TAG, "Registration Token failed " );
+                }
+            }
+        };
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mListView = (ListView) findViewById(R.id.navdrawer);
@@ -77,7 +113,6 @@ public class MainActivity extends BaseActivity {
         mDrawerToggle = new ToolbarDrawerToggle(this, mDrawerLayout, mToolbar,
                 R.string.app_name, R.string.app_name);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
 
         mCategoryData = new CategoryData(getApplicationContext());
         mCategoryData.clear().setCallBack(
@@ -112,6 +147,20 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             selectItem(-1);
         }
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     private final class ToolbarDrawerToggle extends ActionBarDrawerToggle {
@@ -207,7 +256,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(final String searchKeyword) {
                 //검색어넘김
-                if(!DsObjectUtils.isEmpty(searchKeyword)){
+                if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(searchKeyword)){
                     Intent NextIntent = new Intent(getApplicationContext(), SearchActivity.class);
                     NextIntent.putExtra("search", searchKeyword);
                     startActivity(NextIntent);
@@ -240,4 +289,6 @@ public class MainActivity extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

@@ -47,7 +47,7 @@ public class CategoryData extends BaseData {
 
     @Override
     public BaseData setUrl(String url) {
-        if(DsObjectUtils.isEmpty(URL)){
+        if(DsObjectUtils.getInstance(mContext).isEmpty(URL)){
             URL = url;
         }
         return this;

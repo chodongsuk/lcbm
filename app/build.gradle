@@ -35,4 +35,7 @@ dependencies {
     compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.makeramen:roundedimageview:2.2.1'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

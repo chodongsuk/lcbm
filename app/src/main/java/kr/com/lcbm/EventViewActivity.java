@@ -33,35 +33,32 @@ public class EventViewActivity extends BaseActivity implements View.OnClickListe
     private EventHandler mSavedata;
     private TextView mTextViewContet;
 
-    private Button mButtonTell;
     private ContentViewPager mContetContentViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSavedata = (EventHandler) getIntent().getParcelableExtra("data");
-        setContentView(R.layout.activity_view);
+        setContentView(R.layout.activity_event_view);
         mTextViewContet = (TextView)findViewById(R.id.textView_content);
-        (mButtonTell = (Button)findViewById(R.id.button_tell)).setOnClickListener(this);
         mContetContentViewPager = (ContentViewPager)findViewById(R.id.viewpager);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
-            if(!DsObjectUtils.isEmpty(mSavedata.getEd_name())){
+            if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(mSavedata.getEd_name())){
                 mToolbar.setTitle(mSavedata.getEd_name());
             }else{
                 mToolbar.setTitle(getResources().getString(R.string.app_name));
             }
-
             setSupportActionBar(mToolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        if(!DsObjectUtils.isEmpty(mSavedata.getEd_content())){
+        if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(mSavedata.getEd_content())){
             mTextViewContet.setText(Html.fromHtml(mSavedata.getEd_content()));
         }
 
-        if(!DsObjectUtils.isEmpty(mSavedata.getSub_images())){
+        if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(mSavedata.getSub_images())){
             mContetContentViewPager.setVisibility(View.VISIBLE);
                 String[] mDatas = new String[(mSavedata.getSub_images().split(",").length)];
             for(int i=0; i<mSavedata.getSub_images().split(",").length; i++){
@@ -82,7 +79,7 @@ public class EventViewActivity extends BaseActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
     private void SetTell(final String tell){
-        if (!DsObjectUtils.isEmpty(tell)) {
+        if (!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(tell)) {
             AlertDialog.Builder alt_bld = new AlertDialog.Builder(EventViewActivity.this);
             alt_bld.setMessage("전화 연결 하시겠습니까?")
                     .setCancelable(false)
@@ -113,11 +110,6 @@ public class EventViewActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.button_tell:
-//                if(!DsObjectUtils.isEmpty(mSavedata.getGd_tell())) {
-//                    SetTell(mSavedata.getGd_tell());
-//                }
-                break;
         }
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="app_color">#ff5967</color>
-    <color name="colorPrimary">#ff5967</color>
-    <color name="app_color_transparent">#a0ff5967</color>
-    <color name="colorPrimaryDark">#ff4252</color>
+	<color name="app_color">#3fb8ec</color>
+    <color name="colorPrimary">#3fb8ec</color>
+    <color name="app_color_transparent">#a03fb8ec</color>
+    <color name="colorPrimaryDark">#00a4ea</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 
