@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,8 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 import java.util.ArrayList;
 
-import kr.com.lcbm.EventViewActivity;
 import kr.com.lcbm.R;
-import kr.com.lcbm.ViewActivity;
+import kr.com.lcbm.WebActivity;
 import kr.ds.handler.EventHandler;
 
 /**
@@ -43,7 +41,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
         ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent NextIntent = new Intent(mContext, EventViewActivity.class);
+                Intent NextIntent = new Intent(mContext, WebActivity.class);
                 NextIntent.putExtra("data", mArrayList.get(position));
                 mContext.startActivity(NextIntent);
             }

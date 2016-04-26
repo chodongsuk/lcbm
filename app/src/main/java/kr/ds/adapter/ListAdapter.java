@@ -82,7 +82,6 @@ public class ListAdapter extends BaseAdapter {
             holder.textViewName = (TextView) convertView.findViewById(R.id.textView_name);
             holder.textViewTema = (TextView) convertView.findViewById(R.id.textView_tema);
             holder.textViewAddress = (TextView) convertView.findViewById(R.id.textView_address);
-            holder.button = (Button) convertView.findViewById(R.id.button);
 
             convertView.setTag(holder);
         } else {
@@ -138,59 +137,14 @@ public class ListAdapter extends BaseAdapter {
         }else{
             holder.textViewAddress.setText("");
         }
-        if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_tell()) && isCall){
-            holder.button.setVisibility(View.VISIBLE);
-        }else{
-            holder.button.setVisibility(View.GONE);
-        }
-        holder.button.setId(position);
-        holder.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = (int)v.getId();
-                SetTell(mData.get(position).getGd_tell());
-            }
-        });
-
-
-
         return convertView;
     }
 
-    private void SetTell(final String tell){
-        if (!DsObjectUtils.getInstance(mContext).isEmpty(tell)) {
-            AlertDialog.Builder alt_bld = new AlertDialog.Builder(mContext);
-            alt_bld.setMessage("전화 연결 하시겠습니까?")
-                    .setCancelable(false)
-                    .setPositiveButton("전화걸기",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    try{
-                                        Intent NextIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + tell));
-                                        NextIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        mContext.startActivity(NextIntent);
-                                    }catch (Exception e) {
-                                        // TODO: handle exception
-                                        Toast.makeText(mContext, "계속 문제가 발생시 관리자에게 문의해주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            })
-                    .setNegativeButton("취소하기", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // Action for 'NO' Button
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert = alt_bld.create();
-            alert.show();
-        }
-    }
     class ViewHolder {
         RoundedImageView imageView;
         TextView textViewName;
         TextView textViewTema;
         TextView textViewAddress;
-        Button button;
 
     }
 }
