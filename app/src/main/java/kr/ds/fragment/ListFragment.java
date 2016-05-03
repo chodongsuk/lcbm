@@ -91,29 +91,29 @@ public class ListFragment extends BaseFragment {
 		mListData = new ListData(mContext);
 		mProgressBar.setVisibility(View.VISIBLE);
 		mListData.clear().setCallBack(
-				new BaseResultListener() {
+							new BaseResultListener() {
 
-					@Override
-					public <T> void OnComplete() {
+						@Override
+						public <T> void OnComplete() {
 
-					}
-
-					@Override
-					public <T> void OnComplete(ArrayList<T> arrayList) {
-						mProgressBar.setVisibility(View.GONE);
-						if(arrayList != null){
-							mData = (ArrayList<ListHandler>) arrayList;
-							mListAdapter = new ListAdapter(mContext, mData, isCall);
-							mListView.setAdapter(mListAdapter);
 						}
 
-					}
+						@Override
+						public <T> void OnComplete(ArrayList<T> arrayList) {
+							mProgressBar.setVisibility(View.GONE);
+							if(arrayList != null){
+								mData = (ArrayList<ListHandler>) arrayList;
+								mListAdapter = new ListAdapter(mContext, mData);
+								mListView.setAdapter(mListAdapter);
+							}
 
-					@Override
-					public void OnError(String str) {
-						mProgressBar.setVisibility(View.GONE);
+						}
 
-					}
+						@Override
+						public void OnError(String str) {
+							mProgressBar.setVisibility(View.GONE);
+
+						}
 				}).setParam("?code="+mCode).getView();
 
 

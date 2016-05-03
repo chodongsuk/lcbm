@@ -99,7 +99,7 @@ public class SearchFragment extends BaseFragment {
 						mProgressBar.setVisibility(View.GONE);
 						if(arrayList != null){
 							mData = (ArrayList<ListHandler>) arrayList;
-							mListAdapter = new ListAdapter(mContext, mData, isCall);
+							mListAdapter = new ListAdapter(mContext, mData);
 							mListView.setAdapter(mListAdapter);
 						}
 

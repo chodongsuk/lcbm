@@ -3,6 +3,7 @@ package kr.ds.adapter;
 import java.util.ArrayList;
 
 import kr.com.lcbm.R;
+import kr.com.lcbm.ViewActivity;
 import kr.ds.handler.ListHandler;
 import kr.ds.permission.Permission;
 import kr.ds.utils.DsObjectUtils;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +41,11 @@ public class ListAdapter extends BaseAdapter {
     private ArrayList<ListHandler> mData;
     private LayoutInflater mInflater;
     private final ImageLoader imageDownloader = ImageLoader.getInstance();
-    private Boolean isCall = false;
 
-    public ListAdapter(Context context, ArrayList<ListHandler> data , Boolean iscall) {
+
+    public ListAdapter(Context context, ArrayList<ListHandler> data ) {
         mContext = context;
         mData = data;
-        isCall = iscall;
         mInflater = LayoutInflater.from(mContext);
     }
 
@@ -78,6 +79,7 @@ public class ListAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.list_fragment_item,null);
+            holder.cardView = (CardView)convertView.findViewById(R.id.card_view);
             holder.imageView = (RoundedImageView)convertView.findViewById(R.id.imageView);
             holder.textViewName = (TextView) convertView.findViewById(R.id.textView_name);
             holder.textViewTema = (TextView) convertView.findViewById(R.id.textView_tema);
@@ -121,6 +123,15 @@ public class ListAdapter extends BaseAdapter {
             holder.imageView.setVisibility(View.VISIBLE);
         }
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent NextIntent = new Intent(mContext, ViewActivity.class);
+                NextIntent.putExtra("data", mData.get(position));
+                mContext.startActivity(NextIntent);
+            }
+        });
+
 
         if(!DsObjectUtils.getInstance(mContext).isEmpty(mData.get(position).getGd_name())){
             holder.textViewName.setText(mData.get(position).getGd_name());
@@ -141,6 +152,7 @@ public class ListAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
+        CardView cardView;
         RoundedImageView imageView;
         TextView textViewName;
         TextView textViewTema;

@@ -7,10 +7,14 @@ import kr.com.lcbm.CustomWebViewActivity;
 import kr.com.lcbm.ListActivity;
 import kr.com.lcbm.R;
 import kr.com.lcbm.RegisActivity;
+import kr.com.lcbm.ViewActivity;
 import kr.ds.adapter.CategoryAdapter;
+import kr.ds.adapter.ListAdapter;
 import kr.ds.data.BaseResultListener;
 import kr.ds.data.CategoryData;
+import kr.ds.data.ListData;
 import kr.ds.handler.CategoryHandler;
+import kr.ds.handler.ListHandler;
 import kr.ds.widget.CustomViewPager;
 import kr.ds.widget.ScrollGridView;
 
@@ -26,6 +30,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterViewFlipper;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -43,6 +48,10 @@ public class CategoryFragment extends BaseFragment {
 	private CategoryAdapter mCategoryAdapter;
 	private ProgressBar mProgressBar;
 	private ScrollView mScrollViewContainer;
+	private AdapterViewFlipper mAdapterViewFlipper;
+	private ListData mListData;
+	private ListAdapter mListAdapter;
+	private ArrayList<ListHandler> mData2;
 
 	public static CategoryFragment newInstance() {
 		CategoryFragment fragment = new CategoryFragment();
@@ -68,6 +77,8 @@ public class CategoryFragment extends BaseFragment {
 		// TODO Auto-generated method stub
 		mView = inflater.inflate(R.layout.category_fragment, null);
 		mScrollViewContainer = (ScrollView)mView.findViewById(R.id.scrollView_container);
+		mAdapterViewFlipper  = (AdapterViewFlipper)mView.findViewById(R.id.adapterViewFlipper);
+
 
 
 		mProgressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
@@ -122,7 +133,6 @@ public class CategoryFragment extends BaseFragment {
 
 					@Override
 					public <T> void OnComplete(final ArrayList<T> arrayList) {
-						mProgressBar.setVisibility(View.GONE);
 						if(arrayList != null){
 
 							mData = (ArrayList<CategoryHandler>) arrayList;
@@ -132,16 +142,88 @@ public class CategoryFragment extends BaseFragment {
 
 
 						}
+						mListData = new ListData(mContext);
+						mListData.clear().setCallBack(
+								new BaseResultListener() {
+
+									@Override
+									public <T> void OnComplete() {
+
+									}
+
+									@Override
+									public <T> void OnComplete(ArrayList<T> arrayList) {
+										mProgressBar.setVisibility(View.GONE);
+										if(arrayList != null){
+											mData2 = (ArrayList<ListHandler>) arrayList;
+											mListAdapter = new ListAdapter(mContext, mData2);
+											mAdapterViewFlipper.setAdapter(mListAdapter);
+											mAdapterViewFlipper.startFlipping();
+										}
+
+									}
+
+									@Override
+									public void OnError(String str) {
+										mProgressBar.setVisibility(View.GONE);
+
+									}
+								}).setParam("?banner=1").getView();
+
+
+
+
 
 					}
 
 					@Override
 					public void OnError(String str) {
-						mProgressBar.setVisibility(View.GONE);
+						mListData = new ListData(mContext);
+						mListData.clear().setCallBack(
+								new BaseResultListener() {
+
+									@Override
+									public <T> void OnComplete() {
+
+									}
+
+									@Override
+									public <T> void OnComplete(ArrayList<T> arrayList) {
+										mProgressBar.setVisibility(View.GONE);
+										if(arrayList != null){
+											mData2 = (ArrayList<ListHandler>) arrayList;
+											mListAdapter = new ListAdapter(mContext, mData2);
+											mAdapterViewFlipper.setAdapter(mListAdapter);
+											mAdapterViewFlipper.startFlipping();
+										}
+
+									}
+
+									@Override
+									public void OnError(String str) {
+										mProgressBar.setVisibility(View.GONE);
+
+									}
+								}).setParam("?banner=1").getView();
 					}
 				}).getView();
 
 
 	}
 
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mAdapterViewFlipper.isFlipping()) {
+			mAdapterViewFlipper.stopFlipping();
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(!mAdapterViewFlipper.isFlipping()){
+			mAdapterViewFlipper.startFlipping();
+		}
+	}
 }
