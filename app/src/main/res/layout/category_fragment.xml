@@ -1,116 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:focusable="true"
-              android:focusableInTouchMode="true"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/scrollView_container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+
+        <ScrollView
+            android:id="@+id/scrollView_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
-                android:paddingTop="4dip"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
+
+                <kr.ds.widget.CustomViewPager
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="204dip"
+                    android:paddingTop="2dip"></kr.ds.widget.CustomViewPager>
 
-                    <TextView
-                        style="@style/ViewTopText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="사건사고"/>
-                </LinearLayout>
-
-                <View
-                    style="@style/ViewLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginTop="2dip"
-                    android:layout_marginBottom="2dip">
-                </View>
-            </LinearLayout>
-
-
-            <kr.ds.widget.CustomViewPager
-                android:paddingTop="2dip"
-                android:layout_width="match_parent"
-                android:layout_height="204dip"
-                >
-            </kr.ds.widget.CustomViewPager>
-
-
-            <LinearLayout
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
-                android:paddingTop="4dip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/ViewTopText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="추천검색"/>
-                </LinearLayout>
-
-                <View
-                    style="@style/ViewLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dip"
-                    android:layout_marginTop="2dip"
-                    android:layout_marginBottom="2dip">
-                </View>
-            </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-                <kr.ds.widget.ScrollGridView
-                    android:paddingLeft="5dip"
-                    android:paddingRight="5dip"
-                    xmlns:android="http://schemas.android.com/apk/res/android"
+                <kr.ds.widget.ScrollGridView xmlns:android="http://schemas.android.com/apk/res/android"
                     android:id="@+id/gridView"
                     style="@style/ListViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:horizontalSpacing="2dip"
                     android:numColumns="3"
+                    android:paddingLeft="5dip"
+                    android:paddingRight="5dip"
                     android:scrollbars="none"
-                    android:verticalSpacing="2dip"/>
+                    android:verticalSpacing="2dip" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
+                <AdapterViewFlipper
+                    android:id="@+id/adapterViewFlipper"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|center_horizontal"/>
-            </FrameLayout>
+                    android:flipInterval="2000">
+                </AdapterViewFlipper>
 
-        </LinearLayout>
 
-    </ScrollView>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal" />
+    </FrameLayout>
 
 </LinearLayout>
 
