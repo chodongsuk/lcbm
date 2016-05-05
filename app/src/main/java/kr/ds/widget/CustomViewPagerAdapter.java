@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.widget.TextViewCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -27,6 +30,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
     private ArrayList<EventHandler> mArrayList;
     private Context mContext;
     private final ImageLoader imageDownloader = ImageLoader.getInstance();
+    private int mRow = 4;
 
     public CustomViewPagerAdapter(Context context, ArrayList<EventHandler> data){
         mContext = context;
@@ -37,50 +41,44 @@ public class CustomViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_viewpager_item, null);
-        ImageView ivImage = (ImageView) view.findViewById(R.id.imageView);
-        ivImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent NextIntent = new Intent(mContext, WebActivity.class);
-                NextIntent.putExtra("data", mArrayList.get(position));
-                mContext.startActivity(NextIntent);
+        ImageView imageView1 = (ImageView) view.findViewById(R.id.imageView1);
+        TextView textView1 = (TextView) view.findViewById(R.id.textView1);
+        TextView textView2 = (TextView) view.findViewById(R.id.textView2);
+        TextView textView3 = (TextView) view.findViewById(R.id.textView3);
+        TextView textView4 = (TextView) view.findViewById(R.id.textView4);
+
+        int c = 0;
+        for(int i=1; i<=mRow; i++){
+            c = ((position*mRow)+i)-1;
+            if(mArrayList.size() > c){
+                if(i == 1) {
+                    imageDownloader.displayImage(mArrayList.get(c).getEd_image(), imageView1);
+                    imageView1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+//                        Intent NextIntent = new Intent(mContext, WebActivity.class);
+//                        NextIntent.putExtra("data", mArrayList.get(c));
+//                        mContext.startActivity(NextIntent);
+                        }
+                    });
+                    textView1.setText(mArrayList.get(c).getEd_name());
+                    textView1.setVisibility(View.VISIBLE);
+                }else if(i == 2){
+                    textView2.setText(mArrayList.get(c).getEd_name());
+                    textView2.setVisibility(View.VISIBLE);
+                }else if(i == 3){
+                    textView3.setText(mArrayList.get(c).getEd_name());
+                    textView3.setVisibility(View.VISIBLE);
+                }else if(i == 4){
+                    textView4.setText(mArrayList.get(c).getEd_name());
+                    textView4.setVisibility(View.VISIBLE);
+                }
             }
-        });
 
-        imageDownloader.displayImage(mArrayList.get(position).getEd_image(), ivImage,
-                new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String arg0, View arg1) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String arg0, View arg1,
-                                                FailReason arg2) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String arg0, View arg1,
-                                                  Bitmap arg2) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String arg0, View arg1) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
+        }
         container.addView(view);
         return view;
-
     }
-
-
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
@@ -94,9 +92,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mArrayList.size();
+        int count = (mArrayList.size() % mRow == 0) ? (mArrayList.size() / mRow) : (mArrayList.size()/mRow)+1;
+        return count;
     }
-
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return (view == object);
