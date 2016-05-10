@@ -53,24 +53,66 @@ public class CustomViewPagerAdapter extends PagerAdapter {
             if(mArrayList.size() > c){
                 if(i == 1) {
                     imageDownloader.displayImage(mArrayList.get(c).getEd_image(), imageView1);
+                    imageView1.setId(c);
                     imageView1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                        Intent NextIntent = new Intent(mContext, WebActivity.class);
-//                        NextIntent.putExtra("data", mArrayList.get(c));
-//                        mContext.startActivity(NextIntent);
+                            int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            mContext.startActivity(NextIntent);
                         }
                     });
                     textView1.setText(mArrayList.get(c).getEd_name());
                     textView1.setVisibility(View.VISIBLE);
+                    textView1.setId(c);
+                    textView1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                        int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            mContext.startActivity(NextIntent);
+                        }
+                    });
                 }else if(i == 2){
                     textView2.setText(mArrayList.get(c).getEd_name());
+                    textView2.setId(c);
+                    textView2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            mContext.startActivity(NextIntent);
+                        }
+                    });
                     textView2.setVisibility(View.VISIBLE);
                 }else if(i == 3){
                     textView3.setText(mArrayList.get(c).getEd_name());
+                    textView3.setId(c);
+                    textView3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            mContext.startActivity(NextIntent);
+                        }
+                    });
                     textView3.setVisibility(View.VISIBLE);
                 }else if(i == 4){
                     textView4.setText(mArrayList.get(c).getEd_name());
+                    textView4.setId(c);
+                    textView4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            mContext.startActivity(NextIntent);
+                        }
+                    });
                     textView4.setVisibility(View.VISIBLE);
                 }
             }

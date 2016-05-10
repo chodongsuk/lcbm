@@ -7,6 +7,7 @@ import kr.com.lcbm.CustomWebViewActivity;
 import kr.com.lcbm.ListActivity;
 import kr.com.lcbm.R;
 import kr.com.lcbm.RegisActivity;
+import kr.com.lcbm.SearchActivity;
 import kr.com.lcbm.ViewActivity;
 import kr.ds.adapter.CategoryAdapter;
 import kr.ds.adapter.ListAdapter;
@@ -15,6 +16,7 @@ import kr.ds.data.CategoryData;
 import kr.ds.data.ListData;
 import kr.ds.handler.CategoryHandler;
 import kr.ds.handler.ListHandler;
+import kr.ds.utils.DsObjectUtils;
 import kr.ds.widget.CustomViewPager;
 import kr.ds.widget.ScrollGridView;
 
@@ -24,22 +26,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterViewFlipper;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.google.android.gms.internal.zzir.runOnUiThread;
 
 
-public class CategoryFragment extends BaseFragment {
+public class CategoryFragment extends BaseFragment implements View.OnClickListener{
 	private ArrayList<CategoryHandler> mData;
 	private Context mContext;
 	private View mView;
@@ -52,6 +61,8 @@ public class CategoryFragment extends BaseFragment {
 	private ListData mListData;
 	private ListAdapter mListAdapter;
 	private ArrayList<ListHandler> mData2;
+	private EditText mEditTextMessage;
+	private ImageButton mImageButtonSearch;
 
 	public static CategoryFragment newInstance() {
 		CategoryFragment fragment = new CategoryFragment();
@@ -79,8 +90,36 @@ public class CategoryFragment extends BaseFragment {
 		mScrollViewContainer = (ScrollView)mView.findViewById(R.id.scrollView_container);
 		mAdapterViewFlipper  = (AdapterViewFlipper)mView.findViewById(R.id.adapterViewFlipper);
 
+		mEditTextMessage = (EditText)mView.findViewById(R.id.editText_message);
 
+		mEditTextMessage.setImeOptions(EditorInfo.IME_ACTION_GO);
+		mEditTextMessage
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+												  KeyEvent event) {
+						// 요기서 입력된 이벤트가 무엇인지 찾아서 실행해 줌
+						switch (actionId) {
+							case EditorInfo.IME_ACTION_GO:
+								InputMethodManager imm = (InputMethodManager) mContext
+										.getSystemService(Context.INPUT_METHOD_SERVICE);
+								imm.hideSoftInputFromWindow(
+										mEditTextMessage.getWindowToken(), 0);
+				if(!DsObjectUtils.getInstance(mContext).isEmpty(mEditTextMessage.getText().toString())){
+                    Intent NextIntent = new Intent(mContext, SearchActivity.class);
+                    NextIntent.putExtra("search", mEditTextMessage.getText().toString());
+                    startActivity(NextIntent);
 
+                }else{
+                    Toast.makeText(mContext, R.string.search_not, Toast.LENGTH_SHORT).show();
+                }
+								break;
+						}
+						return false;
+					}
+				});
+
+		(mImageButtonSearch = (ImageButton)mView.findViewById(R.id.imageButton_search)).setOnClickListener(this);
 		mProgressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
 		mGridView = (ScrollGridView)mView.findViewById(R.id.gridView);
 		mGridView.setOnItemClickListener(new OnItemClickListener() {
@@ -225,5 +264,21 @@ public class CategoryFragment extends BaseFragment {
 		if(!mAdapterViewFlipper.isFlipping()){
 			mAdapterViewFlipper.startFlipping();
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		if(!mEditTextMessage.getText().toString().equals("")){
+			InputMethodManager imm = (InputMethodManager)mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(mEditTextMessage.getWindowToken(), 0);
+
+			Intent NextIntent = new Intent(mContext, SearchActivity.class);
+			NextIntent.putExtra("search", mEditTextMessage.getText().toString());
+			startActivity(NextIntent);
+		}else{
+				Toast.makeText(mContext, R.string.search_not, Toast.LENGTH_SHORT).show();
+		}
+
 	}
 }

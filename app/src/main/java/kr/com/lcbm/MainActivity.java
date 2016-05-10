@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             mToolbar.setNavigationIcon(R.drawable.side_menu);
-            mToolbar.setTitle(R.string.app_name);
+            mToolbar.setTitle("");
             setSupportActionBar(mToolbar);
         }
         mDrawerToggle = new ToolbarDrawerToggle(this, mDrawerLayout, mToolbar,
@@ -205,6 +205,12 @@ public class MainActivity extends BaseActivity {
         }
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("menu_position", mMenuPosition);
+    }
     private void setFragment(Fragment fragment){
 
         mFm = getSupportFragmentManager();
@@ -232,48 +238,48 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // TODO Auto-generated method stub
-        MenuInflater inflater = this.getMenuInflater();
-        inflater.inflate(R.menu.menu_setting, menu);
-        final SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
-        searchView.setQueryHint("Search");
-        searchView.setIconified(true);
-        mSearchItem = menu.findItem(R.id.menu_search);
-        mSearchItem.setActionView(searchView).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
-        mSearchItem.setVisible(true);
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-            @Override
-            public void onFocusChange(View view,
-                                      boolean queryTextFocused) {
-                if (!queryTextFocused) {
-                    mSearchItem.collapseActionView();
-                    searchView.setQuery("", false);
-                }
-            }
-        });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-            @Override
-            public boolean onQueryTextSubmit(final String searchKeyword) {
-                //검색어넘김
-                if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(searchKeyword)){
-                    Intent NextIntent = new Intent(getApplicationContext(), SearchActivity.class);
-                    NextIntent.putExtra("search", searchKeyword);
-                    startActivity(NextIntent);
-                    mSearchItem.collapseActionView();
-                    searchView.setQuery("", false);
-                }else{
-                    Toast.makeText(getApplicationContext(), R.string.search_not, Toast.LENGTH_SHORT).show();
-                }
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
+//        MenuInflater inflater = this.getMenuInflater();
+//        inflater.inflate(R.menu.menu_setting, menu);
+//        final SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
+//        searchView.setQueryHint("Search");
+//        searchView.setIconified(true);
+//        mSearchItem = menu.findItem(R.id.menu_search);
+//        mSearchItem.setActionView(searchView).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+//        mSearchItem.setVisible(true);
+//        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+//            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+//            @Override
+//            public void onFocusChange(View view,
+//                                      boolean queryTextFocused) {
+//                if (!queryTextFocused) {
+//                    mSearchItem.collapseActionView();
+//                    searchView.setQuery("", false);
+//                }
+//            }
+//        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+//            @Override
+//            public boolean onQueryTextSubmit(final String searchKeyword) {
+//                //검색어넘김
+//                if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(searchKeyword)){
+//                    Intent NextIntent = new Intent(getApplicationContext(), SearchActivity.class);
+//                    NextIntent.putExtra("search", searchKeyword);
+//                    startActivity(NextIntent);
+//                    mSearchItem.collapseActionView();
+//                    searchView.setQuery("", false);
+//                }else{
+//                    Toast.makeText(getApplicationContext(), R.string.search_not, Toast.LENGTH_SHORT).show();
+//                }
+//
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return true;
+//            }
+//        });
         return super.onCreateOptionsMenu(menu);
     }
 

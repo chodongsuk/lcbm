@@ -61,8 +61,8 @@ public class CustomViewPager extends LinearLayout{
 
                     mViewPager = new ViewPager(mContext);
                     mViewPager.setPadding(mScreenUtils.getPixelFromDPI(mContext, 7),0,mScreenUtils.getPixelFromDPI(mContext, 7),0);
-                    mViewPager.setClipToPadding(false);
-                    mViewPager.setPageMargin(mScreenUtils.getPixelFromDPI(mContext, 4));
+                    //mViewPager.setClipToPadding(false);
+                    //mViewPager.setPageMargin(mScreenUtils.getPixelFromDPI(mContext, 4));
                     mCustomViewPagerAdapter = new CustomViewPagerAdapter(mContext, mData);
                     mViewPager.setAdapter(mCustomViewPagerAdapter);
                     addView(mViewPager);

@@ -41,7 +41,7 @@ public class ContentViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.custom_viewpager_item, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.custom_viewpager_item2, null);
         ImageView ivImage = (ImageView) view.findViewById(R.id.imageView);
         ivImage.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -44,7 +44,6 @@ public class ListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSavedata = (CategoryHandler) getIntent().getParcelableExtra("data");
-
         setContentView(R.layout.activity_list);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
