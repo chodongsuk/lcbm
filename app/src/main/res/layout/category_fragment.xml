@@ -30,7 +30,7 @@
 
                     <kr.ds.widget.CustomViewPager
                         android:layout_width="match_parent"
-                        android:layout_height="180dip"
+                        android:layout_height="140dip"
                         android:paddingTop="2dip">
 
                     </kr.ds.widget.CustomViewPager>
@@ -50,12 +50,7 @@
 
 
 
-                    <ImageView
-                        android:padding="12dip"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/icon"/>
+
 
                         <FrameLayout
                             android:layout_width="match_parent"
@@ -63,6 +58,8 @@
                             android:padding="5dip"
                             android:orientation="horizontal">
                             <EditText
+                                android:layout_marginLeft="5dip"
+                                android:layout_marginRight="5dip"
                                 android:hint="검색 입력 해주세요."
                                 android:textColor="@color/black"
                                 android:textColorHint="@color/black"

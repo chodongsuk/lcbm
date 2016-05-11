@@ -30,7 +30,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
     private ArrayList<EventHandler> mArrayList;
     private Context mContext;
     private final ImageLoader imageDownloader = ImageLoader.getInstance();
-    private int mRow = 4;
+    private int mRow = 3;
 
     public CustomViewPagerAdapter(Context context, ArrayList<EventHandler> data){
         mContext = context;
@@ -45,7 +45,6 @@ public class CustomViewPagerAdapter extends PagerAdapter {
         TextView textView1 = (TextView) view.findViewById(R.id.textView1);
         TextView textView2 = (TextView) view.findViewById(R.id.textView2);
         TextView textView3 = (TextView) view.findViewById(R.id.textView3);
-        TextView textView4 = (TextView) view.findViewById(R.id.textView4);
 
         int c = 0;
         for(int i=1; i<=mRow; i++){
@@ -59,7 +58,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                         public void onClick(View v) {
                             int position = (int)v.getId();
                             Intent NextIntent = new Intent(mContext, WebActivity.class);
-                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            NextIntent.putExtra("data", mArrayList.get(position));
                             mContext.startActivity(NextIntent);
                         }
                     });
@@ -71,7 +70,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                         public void onClick(View v) {
                         int position = (int)v.getId();
                             Intent NextIntent = new Intent(mContext, WebActivity.class);
-                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            NextIntent.putExtra("data", mArrayList.get(position));
                             mContext.startActivity(NextIntent);
                         }
                     });
@@ -83,7 +82,7 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                         public void onClick(View v) {
                             int position = (int)v.getId();
                             Intent NextIntent = new Intent(mContext, WebActivity.class);
-                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            NextIntent.putExtra("data", mArrayList.get(position));
                             mContext.startActivity(NextIntent);
                         }
                     });
@@ -96,24 +95,11 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                         public void onClick(View v) {
                             int position = (int)v.getId();
                             Intent NextIntent = new Intent(mContext, WebActivity.class);
-                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
+                            NextIntent.putExtra("data", mArrayList.get(position));
                             mContext.startActivity(NextIntent);
                         }
                     });
                     textView3.setVisibility(View.VISIBLE);
-                }else if(i == 4){
-                    textView4.setText(mArrayList.get(c).getEd_name());
-                    textView4.setId(c);
-                    textView4.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            int position = (int)v.getId();
-                            Intent NextIntent = new Intent(mContext, WebActivity.class);
-                            NextIntent.putExtra("data", mArrayList.get(position).getEd_subject());
-                            mContext.startActivity(NextIntent);
-                        }
-                    });
-                    textView4.setVisibility(View.VISIBLE);
                 }
             }
 
