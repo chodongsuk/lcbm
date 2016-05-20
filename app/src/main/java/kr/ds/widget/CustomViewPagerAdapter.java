@@ -42,6 +42,9 @@ public class CustomViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.custom_viewpager_item, null);
         ImageView imageView1 = (ImageView) view.findViewById(R.id.imageView1);
+        ImageView imageView2 = (ImageView) view.findViewById(R.id.imageView2);
+        ImageView imageView3 = (ImageView) view.findViewById(R.id.imageView3);
+
         TextView textView1 = (TextView) view.findViewById(R.id.textView1);
         TextView textView2 = (TextView) view.findViewById(R.id.textView2);
         TextView textView3 = (TextView) view.findViewById(R.id.textView3);
@@ -75,6 +78,17 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                         }
                     });
                 }else if(i == 2){
+                    imageDownloader.displayImage(mArrayList.get(c).getEd_image(), imageView2);
+                    imageView2.setId(c);
+                    imageView2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position));
+                            mContext.startActivity(NextIntent);
+                        }
+                    });
                     textView2.setText(mArrayList.get(c).getEd_name());
                     textView2.setId(c);
                     textView2.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +102,17 @@ public class CustomViewPagerAdapter extends PagerAdapter {
                     });
                     textView2.setVisibility(View.VISIBLE);
                 }else if(i == 3){
+                    imageDownloader.displayImage(mArrayList.get(c).getEd_image(), imageView3);
+                    imageView3.setId(c);
+                    imageView3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int position = (int)v.getId();
+                            Intent NextIntent = new Intent(mContext, WebActivity.class);
+                            NextIntent.putExtra("data", mArrayList.get(position));
+                            mContext.startActivity(NextIntent);
+                        }
+                    });
                     textView3.setText(mArrayList.get(c).getEd_name());
                     textView3.setId(c);
                     textView3.setOnClickListener(new View.OnClickListener() {
@@ -110,11 +135,13 @@ public class CustomViewPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        LinearLayout rl = (LinearLayout) object;
-        if (rl != null) {
-            ImageView ivImage = (ImageView) rl.findViewById(R.id.imageView);
-            imageDownloader.cancelDisplayTask(ivImage);
-        }
+//        LinearLayout rl = (LinearLayout) object;
+//        if (rl != null) {
+//            ImageView ivImage = (ImageView) rl.findViewById(R.id.imageView);
+//            if(imageDownloader != null) {
+//                imageDownloader.cancelDisplayTask(ivImage);
+//            }
+//        }
         container.removeView((View) object);
     }
 

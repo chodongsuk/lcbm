@@ -24,7 +24,6 @@
             app:riv_border_color="@color/app_color"
             app:riv_mutate_background="true"
             app:riv_oval="true"
-            android:src="@mipmap/icon"
             android:layout_width="90dip"
             android:layout_height="125dip"
             android:scaleType="centerCrop"
