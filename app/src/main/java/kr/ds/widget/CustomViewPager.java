@@ -25,23 +25,28 @@ public class CustomViewPager extends LinearLayout{
     private Context mContext;
     private ScreenUtils mScreenUtils = ScreenUtils.getInstacne();
 
+    private ResultListener mResultListener;
+    public CustomViewPager setCallback(ResultListener listener) {
+        mResultListener = listener;
+        return this;
+    }
+    public interface ResultListener {
+        public <T> void OnComplete(T data, int nums);
+    }
 
     public CustomViewPager(Context context) {
         super(context);
         mContext = context;
-        init();
     }
 
     public CustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
-        init();
     }
 
     public CustomViewPager(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
-        init();
     }
 
 
@@ -66,6 +71,9 @@ public class CustomViewPager extends LinearLayout{
                     mCustomViewPagerAdapter = new CustomViewPagerAdapter(mContext, mData);
                     mViewPager.setAdapter(mCustomViewPagerAdapter);
                     addView(mViewPager);
+                    if(mResultListener != null){
+                        mResultListener.OnComplete(mViewPager, (mData.size() % 3 == 0) ? (mData.size() / 3) : (mData.size()/3)+1);
+                    }
                 }
 
             }

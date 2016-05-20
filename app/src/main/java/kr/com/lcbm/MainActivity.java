@@ -81,7 +81,6 @@ public class MainActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_main);
 
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (checkPlayServices() && sharedPreferences.getString(QuickstartPreferences.TOKEN,"").matches("")) { //토큰이 없는경우..
             // Start IntentService to register this application with GCM.

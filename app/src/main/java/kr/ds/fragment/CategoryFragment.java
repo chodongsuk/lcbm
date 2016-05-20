@@ -19,12 +19,14 @@ import kr.ds.handler.ListHandler;
 import kr.ds.utils.DsObjectUtils;
 import kr.ds.widget.CustomViewPager;
 import kr.ds.widget.ScrollGridView;
+import kr.ds.widget.ViewpagerNavibar;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -63,6 +65,9 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
 	private ArrayList<ListHandler> mData2;
 	private EditText mEditTextMessage;
 	private ImageButton mImageButtonSearch;
+	private LinearLayout mLinearLayoutNavibar;
+	private ViewpagerNavibar mViewpagerNavibar;
+	private CustomViewPager mCustomViewPager;
 
 	public static CategoryFragment newInstance() {
 		CategoryFragment fragment = new CategoryFragment();
@@ -89,7 +94,6 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
 		mView = inflater.inflate(R.layout.category_fragment, null);
 		mScrollViewContainer = (ScrollView)mView.findViewById(R.id.scrollView_container);
 		mAdapterViewFlipper  = (AdapterViewFlipper)mView.findViewById(R.id.adapterViewFlipper);
-
 		mEditTextMessage = (EditText)mView.findViewById(R.id.editText_message);
 
 		mEditTextMessage.setImeOptions(EditorInfo.IME_ACTION_GO);
@@ -152,6 +156,35 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
 				
 			}
 		});
+		mLinearLayoutNavibar = (LinearLayout) mView.findViewById(R.id.linearLayout_navibar);
+		mCustomViewPager = (CustomViewPager)mView.findViewById(R.id.viewpager);
+
+		mCustomViewPager.setCallback(new CustomViewPager.ResultListener() {
+			@Override
+			public <T> void OnComplete(T data, int nums) {
+				ViewPager mViewPager = (ViewPager) data;
+				mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+					@Override
+					public void onPageSelected(int arg0) {
+						// TODO Auto-generated method stub
+						mViewpagerNavibar.setButton(arg0);
+					}
+
+					@Override
+					public void onPageScrolled(int arg0, float arg1, int arg2) {
+						// TODO Auto-generated method stub
+					}
+
+					@Override
+					public void onPageScrollStateChanged(int arg0) {
+						// TODO Auto-generated method stub
+					}
+				});
+				mViewpagerNavibar = new ViewpagerNavibar(mContext, nums);
+				mLinearLayoutNavibar.addView(mViewpagerNavibar);
+			}
+		});
+		mCustomViewPager.init();
 		return mView;
 	}
 	@Override

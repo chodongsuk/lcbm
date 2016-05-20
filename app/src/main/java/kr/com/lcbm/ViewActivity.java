@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -28,13 +30,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.net.ContentHandler;
 
 import kr.ds.fragment.WorkaroundMapFragment;
-import kr.ds.handler.CategoryHandler;
 import kr.ds.handler.ListHandler;
 import kr.ds.utils.DsObjectUtils;
 import kr.ds.widget.ContentViewPager;
+import kr.ds.widget.ViewpagerNavibar;
 
 /**
  * Created by Administrator on 2016-03-21.
@@ -59,6 +60,8 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener, 
 
     private TextView mTextViewTema, mTextViewAddress, mTextViewTell, mTextViewTime, mTextViewHoliday;
 
+    private LinearLayout mLinearLayoutNavibar;
+    private ViewpagerNavibar mViewpagerNavibar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,8 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener, 
         mTextViewTell = (TextView)findViewById(R.id.textView_tell);
         mTextViewTime = (TextView)findViewById(R.id.textView_time);
         mTextViewHoliday = (TextView)findViewById(R.id.textView_holiday);
+
+        mLinearLayoutNavibar = (LinearLayout) findViewById(R.id.linearLayout_navibar);
 
 
         if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext()) == ConnectionResult.SUCCESS) {
@@ -114,6 +119,34 @@ public class ViewActivity extends BaseActivity implements View.OnClickListener, 
             for(int i=0; i<mSavedata.getSub_images().split(",").length; i++){
                 mDatas[i] = mSavedata.getSub_images().split(",")[i];
             }
+            Log.i("TEST","OnComplete1");
+            mContetContentViewPager.setCallback(new ContentViewPager.ResultListener() {
+                @Override
+                public <T> void OnComplete(T data, int nums) {
+                    Log.i("TEST","OnComplete2");
+                    ViewPager mViewPager = (ViewPager) data;
+                    mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageSelected(int arg0) {
+                            // TODO Auto-generated method stub
+                            mViewpagerNavibar.setButton(arg0);
+                        }
+
+                        @Override
+                        public void onPageScrolled(int arg0, float arg1, int arg2) {
+                            // TODO Auto-generated method stub
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int arg0) {
+                            // TODO Auto-generated method stub
+                        }
+                    });
+                    mViewpagerNavibar = new ViewpagerNavibar(getApplicationContext(), nums);
+                    mLinearLayoutNavibar.addView(mViewpagerNavibar);
+
+                }
+            });
             mContetContentViewPager.setView(mDatas);
         }else{
             mContetContentViewPager.setVisibility(View.GONE);

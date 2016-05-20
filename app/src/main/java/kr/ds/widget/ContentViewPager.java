@@ -19,6 +19,15 @@ public class ContentViewPager extends LinearLayout{
     private ScreenUtils mScreenUtils = ScreenUtils.getInstacne();
     private String[] mData;
 
+    private ResultListener mResultListener;
+    public ContentViewPager setCallback(ResultListener listener) {
+        mResultListener = listener;
+        return this;
+    }
+    public interface ResultListener {
+        public <T> void OnComplete(T data, int nums);
+    }
+
     public ContentViewPager(Context context) {
         super(context);
         mContext = context;
@@ -37,12 +46,15 @@ public class ContentViewPager extends LinearLayout{
     public void setView(String[] data){
         mData   = data;
         mViewPager = new ViewPager(mContext);
-        mViewPager.setPadding(mScreenUtils.getPixelFromDPI(mContext, 7),0,mScreenUtils.getPixelFromDPI(mContext, 7),0);
-        mViewPager.setClipToPadding(false);
-        mViewPager.setPageMargin(mScreenUtils.getPixelFromDPI(mContext, 4));
+        //mViewPager.setPadding(mScreenUtils.getPixelFromDPI(mContext, 7),0,mScreenUtils.getPixelFromDPI(mContext, 7),0);
+        //mViewPager.setClipToPadding(false);
+        //mViewPager.setPageMargin(mScreenUtils.getPixelFromDPI(mContext, 4));
         mContentViewPagerAdapter = new ContentViewPagerAdapter(mContext, mData);
         mViewPager.setAdapter(mContentViewPagerAdapter);
         addView(mViewPager);
+        if(mResultListener != null){
+            mResultListener.OnComplete(mViewPager, mData.length);
+        }
     }
 
 }
