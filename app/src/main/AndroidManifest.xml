@@ -66,33 +66,41 @@
 
         <activity
             android:name=".CustomWebViewActivity"
+            android:screenOrientation="portrait"
            >
         </activity>
 
         <activity
             android:windowSoftInputMode="adjustResize|stateHidden"
             android:name=".RegisActivity"
+            android:screenOrientation="portrait"
            >
         </activity>
 
         <activity
             android:name=".WebActivity"
+            android:screenOrientation="portrait"
             >
         </activity>
         <activity
             android:name=".SearchActivity"
+            android:screenOrientation="portrait"
            >
         </activity>
         <activity
             android:name=".ListActivity"
+            android:screenOrientation="portrait"
+
              >
         </activity>
         <activity
             android:name=".ViewActivity"
+            android:screenOrientation="portrait"
              >
         </activity>
         <activity
             android:name=".EventViewActivity"
+            android:screenOrientation="portrait"
             >
         </activity>
 
