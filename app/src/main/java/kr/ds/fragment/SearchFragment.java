@@ -14,6 +14,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import kr.com.lcbm.R;
@@ -86,31 +88,35 @@ public class SearchFragment extends BaseFragment {
 		super.onActivityCreated(savedInstanceState);
 		mListData = new ListData(mContext);
 		mProgressBar.setVisibility(View.VISIBLE);
-		mListData.clear().setCallBack(
-				new BaseResultListener() {
+		try {
+			mListData.clear().setCallBack(
+                    new BaseResultListener() {
 
-					@Override
-					public <T> void OnComplete() {
+                        @Override
+                        public <T> void OnComplete() {
 
-					}
+                        }
 
-					@Override
-					public <T> void OnComplete(ArrayList<T> arrayList) {
-						mProgressBar.setVisibility(View.GONE);
-						if(arrayList != null){
-							mData = (ArrayList<ListHandler>) arrayList;
-							mListAdapter = new ListAdapter(mContext, mData);
-							mListView.setAdapter(mListAdapter);
-						}
+                        @Override
+                        public <T> void OnComplete(ArrayList<T> arrayList) {
+                            mProgressBar.setVisibility(View.GONE);
+                            if(arrayList != null){
+                                mData = (ArrayList<ListHandler>) arrayList;
+                                mListAdapter = new ListAdapter(mContext, mData);
+                                mListView.setAdapter(mListAdapter);
+                            }
 
-					}
+                        }
 
-					@Override
-					public void OnError(String str) {
-						mProgressBar.setVisibility(View.GONE);
+                        @Override
+                        public void OnError(String str) {
+                            mProgressBar.setVisibility(View.GONE);
 
-					}
-				}).setParam("?search="+mSearch).getView();
+                        }
+                    }).setParam("?search="+ URLEncoder.encode(mSearch,"utf-8")).getView();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 
 
 	}
