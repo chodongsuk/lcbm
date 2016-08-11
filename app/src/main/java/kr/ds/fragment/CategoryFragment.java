@@ -3,6 +3,7 @@ package kr.ds.fragment;
 import java.util.ArrayList;
 
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import kr.com.lcbm.CaseActivity;
 import kr.com.lcbm.CustomWebViewActivity;
 import kr.com.lcbm.ListActivity;
 import kr.com.lcbm.R;
@@ -148,6 +149,13 @@ public class CategoryFragment extends BaseFragment implements View.OnClickListen
 				}else if(mData.get(position).getType().matches("R")){
 
 					Intent NextIntent = new Intent(mContext, RegisActivity.class);
+					NextIntent.putExtra("data", mData.get(position));
+					startActivity(NextIntent);
+
+
+				}else if(mData.get(position).getType().matches("V2")){
+
+					Intent NextIntent = new Intent(mContext, CaseActivity.class);
 					NextIntent.putExtra("data", mData.get(position));
 					startActivity(NextIntent);
 

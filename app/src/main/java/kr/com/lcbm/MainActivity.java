@@ -181,6 +181,8 @@ public class MainActivity extends BaseActivity {
             mFragment = CategoryFragment.newInstance();
             setFragment(mFragment);
         }else if(position >= 0){
+            Log.i("TEST",mMenuData.get(position).getType()+"");
+
             if(mMenuData.get(position).getType().matches("V")){
 
                 Intent NextIntent = new Intent(getApplicationContext(), ListActivity.class);
@@ -199,6 +201,10 @@ public class MainActivity extends BaseActivity {
                 NextIntent.putExtra("data", mMenuData.get(position));
                 startActivity(NextIntent);
 
+            }else if(mMenuData.get(position).getType().matches("V2")){
+                Intent NextIntent = new Intent(getApplicationContext(), CaseActivity.class);
+                NextIntent.putExtra("data", mMenuData.get(position));
+                startActivity(NextIntent);
             }
             mDrawerLayout.closeDrawer(GravityCompat.START);
         }
