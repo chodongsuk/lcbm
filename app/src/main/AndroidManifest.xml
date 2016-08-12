@@ -109,7 +109,11 @@
             >
         </activity>
         <activity android:name=".PopupImageViewActivity"  android:configChanges="orientation|screenSize"></activity>
-
+        <activity
+            android:name=".CaseViewActivity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

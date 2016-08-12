@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
+import kr.com.lcbm.CaseViewActivity;
 import kr.com.lcbm.PopupImageViewActivity;
 import kr.com.lcbm.R;
 import kr.com.lcbm.ViewActivity;
@@ -97,10 +98,8 @@ public class CaseFragment extends BaseFragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Intent NextIntent = new Intent(mContext, PopupImageViewActivity.class);
-
-				NextIntent.putExtra("urls", mData.get(position).getSub_images());
-				NextIntent.putExtra("position", 0);
+				Intent NextIntent = new Intent(mContext, CaseViewActivity.class);
+				NextIntent.putExtra("data", mData.get(position));
 				mContext.startActivity(NextIntent);
 			}
 		});
