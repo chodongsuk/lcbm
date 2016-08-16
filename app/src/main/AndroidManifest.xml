@@ -114,6 +114,11 @@
             android:screenOrientation="portrait"
             >
         </activity>
+        <activity
+            android:name=".Alert"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2" >
+        </activity>
         <!-- [START gcm_receiver] -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

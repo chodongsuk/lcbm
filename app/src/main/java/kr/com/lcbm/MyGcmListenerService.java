@@ -45,12 +45,28 @@ public class MyGcmListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("msg");
         String image_url = data.getString("image_url");
-        if(!DsObjectUtils.getInstance(this).isEmpty(image_url)){
-            Bitmap bitmap = Helper.tryToGetBitmapFromInternet(image_url, this, -1);
-            sendNotification(message, bitmap);
+        String type = data.getString("type");
+
+        if(!DsObjectUtils.getInstance(getApplicationContext()).isEmpty(type)){
+            if(type.matches("update")){
+                Intent i = new Intent(getApplicationContext(), Alert.class);
+                Bundle b = new Bundle();
+                b.putString("text", message);
+                i.putExtras(b);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+            }
         }else{
-            sendNotification(message);
+            if(!DsObjectUtils.getInstance(this).isEmpty(image_url)){
+                Bitmap bitmap = Helper.tryToGetBitmapFromInternet(image_url, this, -1);
+                sendNotification(message, bitmap);
+            }else{
+                sendNotification(message);
+            }
         }
+
+
+
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
@@ -89,7 +105,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setContentTitle(getString(R.string.app_name))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.icon)
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -108,7 +124,7 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setContentTitle(getString(R.string.app_name))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.icon)
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
